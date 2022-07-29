@@ -1,0 +1,8 @@
+.vscode
+.env
+__pycache__
+test_bot
+main_alt.py
+Downloaded_voice.oga
+Voice_to_transmit.wav
+list_home.json

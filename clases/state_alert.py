@@ -1,7 +1,7 @@
 
 
 from clases.sound import Sound
-from test_bot.debounce import Debounce
+from clases.debounce import Debounce
 
 
 class State_Alert:

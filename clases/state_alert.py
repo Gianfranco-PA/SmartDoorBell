@@ -12,7 +12,7 @@ class State_Alert:
         
     #Debounce
         
-    def state(self):
+    def to_update(self):
         self.num_pushButton+=1
         if self.alarm_activate:
             self.alarm.stop()
@@ -21,3 +21,6 @@ class State_Alert:
         if not self.alarm_activate and self.num_pushButton>=3:
             self.alarm.loop()
             self.alarm_activate=True
+            
+    def getIsState(self):
+        return self.alarm_activate

@@ -2,9 +2,9 @@ from pygame import mixer
 
 class Sound:
     
-    def __init__(self,alertSound_dir,volume:float=1):
+    def __init__(self,sound_dir,volume:float=1):
         mixer.init()
-        self.sound=mixer.Sound(alertSound_dir)
+        self.sound=mixer.Sound(sound_dir)
         self.sound.set_volume(volume)
         
     def one(self):

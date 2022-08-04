@@ -11,10 +11,10 @@ class State_Alert:
         self.alarm_activate=False
         self.alarm=sound
         self.debounce=Debounce(self.num_pushButton,3,self.restart)
+        self.debounce.run()
         
         
     def to_update(self):
-        self.debounce.run()
         self.num_pushButton[0]+=1
         if self.alarm_activate:
             self.alarm.stop()

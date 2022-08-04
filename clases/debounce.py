@@ -19,6 +19,7 @@ class Debounce():
                 while self.cont<self.delay:
                     time.sleep(0.5)
                     self.cont+=0.5
+                    print(self.value_actually)
                     if self.value_actually!=self.__value_copy:
                         self.__value_copy=self.value_actually.copy()
                         self.cont=0

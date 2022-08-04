@@ -15,17 +15,18 @@ class State_Alert:
         
         
     def to_update(self):
-        self.num_pushButton[0]+=1
         if self.alarm_activate:
             self.alarm.stop()
             self.restart()
             self.alarm_activate=False
-        if not self.alarm_activate and self.num_pushButton[0]>=3:
+        elif not self.alarm_activate and self.num_pushButton[0]>=3:
             self.alarm.loop()
             self.alarm_activate=True
+        else:
+            self.num_pushButton[0]+=1
             
     def getIsState(self):
         return self.alarm_activate
     
     def restart(self):
-        self.num_pushButton=[0]
+        self.num_pushButton[0]=0

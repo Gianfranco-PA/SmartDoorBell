@@ -24,6 +24,7 @@ class Debounce():
         
     def run(self):
         if not self.thread.is_alive():
+            self.thread=threading.Thread(name='Debounce', target=self.__target)
             self.thread.start()
         
     def setValue(self,value:list):

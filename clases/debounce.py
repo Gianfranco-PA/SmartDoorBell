@@ -8,7 +8,7 @@ class Debounce():
         self.delay=delay
         self.callback=callback
         self.cont=0
-        self.thread=threading.Thread(name='Debounce', target=self.__target)
+        self.thread=threading.Thread(target=self.__target)
         
     def __target(self):
         self.__value_copy=self.value_actually.copy()
@@ -24,7 +24,7 @@ class Debounce():
         
     def run(self):
         if not self.thread.is_alive():
-            self.thread=threading.Thread(name='Debounce', target=self.__target)
+            self.thread=threading.Thread(target=self.__target)
             self.thread.start()
         
     def setValue(self,value:list):

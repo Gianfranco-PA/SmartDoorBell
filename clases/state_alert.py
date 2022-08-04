@@ -20,7 +20,7 @@ class State_Alert:
             self.alarm.stop()
             self.restart()
             self.alarm_activate=False
-        if not self.alarm_activate and self.num_pushButton>=3:
+        if not self.alarm_activate and self.num_pushButton[0]>=3:
             self.alarm.loop()
             self.alarm_activate=True
             

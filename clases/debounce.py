@@ -7,24 +7,28 @@ class Debounce():
         self.value_actually=value
         self.delay=delay
         self.callback=callback
-        self.cont=0
-        self.thread=threading.Thread(target=self.__target)
+        self.cont=0 #mejor usar time()
+        self.thread=threading.Thread(name='Debounce', target=self.__target,daemon=True)
         
     def __target(self):
-        self.__value_copy=self.value_actually.copy()
-        while self.cont<self.delay:
+        while True:
+            self.__value_copy=self.value_actually.copy()
             if self.value_actually!=self.__value_copy:
                 self.cont=0
-                self.__value_copy=self.value_actually.copy()
-                pass
-            self.cont+=0.5
-            time.sleep(0.5)
-            
-        self.callback()
+                while self.cont<self.delay:
+                    time.sleep(0.5)
+                    self.cont+=0.5
+                    self.__value_copy=self.value_actually.copy()
+                    if self.value_actually!=self.__value_copy:
+                        self.cont=0
+                        pass
+                self.callback()
+            else:
+                time.sleep(0.5)
+        
         
     def run(self):
         if not self.thread.is_alive():
-            self.thread=threading.Thread(target=self.__target)
             self.thread.start()
         
     def setValue(self,value:list):

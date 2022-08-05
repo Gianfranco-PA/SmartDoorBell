@@ -36,7 +36,7 @@ class SmartBellBot:
         def echo_all(message):
             self.instance.reply_to(message, message.text)
             
-        @self.instance.message_handler(content_types=['voice'])
+        @self.instance.message_handler(chat_types=['group'],content_types=['voice'])
         def handle_audio(message):
             self.__response_voice(message)
 

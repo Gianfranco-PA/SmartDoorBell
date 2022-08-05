@@ -24,11 +24,7 @@ class DoorBell:
     def process_notification(self):
         data=self.collect.run()
         
-        msg="""
-            Tienes una visita en la puerta.\n
-            Nombre:{0}\n
-            Busca a: {1}
-        """.format(data["Visitor_name"],data["Looks_for"])
+        msg="Tienes una visita en la puerta.\nNombre:{0}\nBusca a: {1}".format(data["Visitor_name"],data["Looks_for"])
         self.bot.send_photo(data["ID_habitant"],data["Photo"],msg)
         self.bot.set_time_respond()
         

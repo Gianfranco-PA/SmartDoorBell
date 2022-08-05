@@ -10,12 +10,12 @@ class Capture_voice:
     def capture(self,time_wait:int):
         with self.microphone as source:
             self.recognizer.adjust_for_ambient_noise(source)
+            try:
+                audio=self.recognizer.listen(source,time_wait)
+            except sr.WaitTimeoutError as e:
+                print(e)
+                return False
         
-        try:
-            audio=self.recognizer.listen(self.microphone,time_wait)
-        except sr.WaitTimeoutError as e:
-            print(e)
-            return False
         text=self.recognizer.recognize_google(audio,language="es-PE")
         return text
             

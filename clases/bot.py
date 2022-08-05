@@ -1,6 +1,6 @@
 import threading
 import telebot
-from time import time
+import time
 from clases.image import Capture_image
 from clases.sound import Sound
 
@@ -64,7 +64,7 @@ class SmartBellBot:
         self.alarm.stop()
         
     def __response_voice(self,message):
-        if time()<self.__time:
+        if time.time()<self.__time:
             file_info = self.instance.get_file(message.voice.file_id)
             downloaded_file = self.instance.download_file(file_info.file_path)
             with open('Downloaded_voice.oga', 'wb') as new_file:
@@ -75,7 +75,7 @@ class SmartBellBot:
             sound.one()
         
     def set_time_respond(self):
-        self.__time=time()+60
+        self.__time=time.time()+60
 
     
     

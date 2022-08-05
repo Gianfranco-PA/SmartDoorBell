@@ -30,6 +30,7 @@ class DoorBell:
             Busca a: {1}
         """.format(data["Visitor_name"],data["Looks_for"])
         self.bot.send_photo(data["ID_habitant"],data["Photo"],msg)
+        self.bot.set_time_respond()
         
     def emergency_notification(self):
         self.alarm.to_update()

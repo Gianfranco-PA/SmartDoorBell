@@ -1,6 +1,6 @@
 import threading
 import telebot
-import time
+from time import time
 from clases.image import Capture_image
 from clases.sound import Sound
 
@@ -14,6 +14,7 @@ class SmartBellBot:
         self.instance=telebot.TeleBot(token)
         self.image=image
         self.alarm=alarm
+        self.__time=0
         
         @self.instance.message_handler(commands=['start', 'help'])
         def send_welcome(message):
@@ -37,7 +38,7 @@ class SmartBellBot:
             
         @self.instance.message_handler(content_types=['voice'])
         def handle_audio(message):
-            self.__response_para(message,token)
+            self.__response_voice(message)
 
     def start(self):
         threading.Thread(name="SmartBellBot", target=self.instance.polling,).start()
@@ -62,15 +63,19 @@ class SmartBellBot:
     def __response_para(self,message):
         self.alarm.stop()
         
-    def __response_para(self,message,token):
-        file_info = self.instance.get_file(message.voice.file_id)
-        downloaded_file = self.instance.download_file(file_info.file_path)
-        with open('Downloaded_voice.oga', 'wb') as new_file:
-            new_file.write(downloaded_file)
-        sound_oga=AudioSegment.from_ogg('Downloaded_voice.oga')
-        sound_oga.export('Voice_to_transmit.wav',format="wav")
-        sound=Sound('Voice_to_transmit.wav')
-        sound.one()
+    def __response_voice(self,message):
+        if time()<self.__time:
+            file_info = self.instance.get_file(message.voice.file_id)
+            downloaded_file = self.instance.download_file(file_info.file_path)
+            with open('Downloaded_voice.oga', 'wb') as new_file:
+                new_file.write(downloaded_file)
+            sound_oga=AudioSegment.from_ogg('Downloaded_voice.oga')
+            sound_oga.export('Voice_to_transmit.wav',format="wav")
+            sound=Sound('Voice_to_transmit.wav')
+            sound.one()
+        
+    def set_time_respond(self):
+        self.__time=time()+60
 
     
     

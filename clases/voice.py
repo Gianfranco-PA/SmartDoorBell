@@ -7,15 +7,14 @@ class Capture_voice:
         self.microphone=sr.Microphone(device_index=0)
     
     def capture(self,time_wait:int):
-        with self.microphone as source:
-            self.recognizer.adjust_for_ambient_noise(source)
-            try:
-                audio=self.recognizer.listen(source,time_wait)
-                text=self.recognizer.recognize_google(audio,language="es-PE")
-                return text
-            except sr.WaitTimeoutError as e:
-                print(e)
-                return False
+        self.recognizer.adjust_for_ambient_noise(self.microphone)
+        try:
+            audio=self.recognizer.listen(self.microphone,time_wait)
+            text=self.recognizer.recognize_google(audio,language="es-PE")
+            return text
+        except sr.WaitTimeoutError as e:
+            print(e)
+            return False
             
             
 from gtts import gTTS

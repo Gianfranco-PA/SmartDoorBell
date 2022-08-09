@@ -1,32 +1,34 @@
-
-
+import time
 from clases.sound import Sound
-from clases.debounce import Debounce
 
 
 class State_Alert:
     
     def __init__(self, sound:Sound):
-        self.num_pushButton=[0]
+        self.num_pushButton=0
         self.alarm_activate=False
         self.alarm=sound
-        self.debounce=Debounce(self.num_pushButton,3,self.restart)
-        self.debounce.run()
+        self.__time=0
         
         
     def to_update(self):
-        if self.alarm_activate:
-            self.alarm.stop()
-            self.restart()
-            self.alarm_activate=False
-        elif not self.alarm_activate and self.num_pushButton[0]>=3:
-            self.alarm.loop()
-            self.alarm_activate=True
+        if self.__time>time.time():
+            self.__time=time.time()+6
+            if self.alarm_activate:
+                self.alarm.stop()
+                self.num_pushButton=0
+                self.alarm_activate=False
+            elif not self.alarm_activate and self.num_pushButton>2:
+                self.alarm.loop()
+                self.alarm_activate=True
+            else:
+                self.num_pushButton+=1
         else:
-            self.num_pushButton[0]+=1
+            self.__time=time.time()+6
+            self.alarm.stop()
+            self.alarm_activate=False
+            self.num_pushButton=1
             
     def getIsState(self):
         return self.alarm_activate
     
-    def restart(self):
-        self.num_pushButton[0]=0

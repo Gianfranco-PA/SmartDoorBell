@@ -17,6 +17,8 @@ class Collect_data:
         
         
     def __find_floor(self,word:str):
+        if not isinstance(word, str):
+            return False
         word=word.lower()
         for item in self.name_list:
             for value in item["Names"]:

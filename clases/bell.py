@@ -36,7 +36,7 @@ class DoorBell:
         bucket=storage.bucket()
         blob = bucket.blob(datetime.today().strftime('%Y-%m-%d %H:%M')+".jpg")
         output = io.BytesIO(data["Photo"])
-        blob.upload_from_string(output.read())
+        blob.upload_from_string(output.read(),content_type='application/jpeg')
         
     def emergency_notification(self):
         self.alarm.to_update()

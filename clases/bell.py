@@ -33,7 +33,7 @@ class DoorBell:
         
         #FIREBASE
         bucket=storage.bucket()
-        blob = bucket.blob(datetime.today().strftime('%Y-%m-%d %H:%M'))
+        blob = bucket.blob(datetime.today().strftime('%Y-%m-%d %H:%M')+".jpg")
         blob.upload_from_file(data["Photo"])
         
     def emergency_notification(self):

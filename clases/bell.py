@@ -1,5 +1,6 @@
 
 
+import io
 from gpiozero import Button
 from signal import pause
 from clases.bot import SmartBellBot
@@ -34,7 +35,8 @@ class DoorBell:
         #FIREBASE
         bucket=storage.bucket()
         blob = bucket.blob(datetime.today().strftime('%Y-%m-%d %H:%M')+".jpg")
-        blob.upload_from_file(data["Photo"])
+        output = io.BytesIO(data["Photo"])
+        blob.upload_from_string(output.read())
         
     def emergency_notification(self):
         self.alarm.to_update()

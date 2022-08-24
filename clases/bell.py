@@ -6,6 +6,9 @@ from clases.bot import SmartBellBot
 from clases.data_collection import Collect_data
 from clases.state_alert import State_Alert
 
+from firebase_admin import storage
+from datetime import datetime
+
 
 class DoorBell:
     
@@ -27,6 +30,11 @@ class DoorBell:
         msg="Tienes una visita en la puerta.\nNombre:{0}\nBusca a: {1}".format(data["Visitor_name"],data["Looks_for"])
         self.bot.send_photo(data["ID_habitant"],data["Photo"],msg)
         self.bot.set_time_respond()
+        
+        #FIREBASE
+        bucket=storage.bucket()
+        blob = bucket.blob(datetime.today().strftime('%Y-%m-%d %H:%M'))
+        blob.upload_from_file(data["Photo"])
         
     def emergency_notification(self):
         self.alarm.to_update()

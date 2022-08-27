@@ -40,7 +40,8 @@ class Collect_data:
                 self.creVoice.create("No se detecto ninguna voz. ¿Podria decirlo denuevo?")
                 self.creVoice.run()
                 cont+=1
-        return input_voice
+            else:
+                return input_voice
             
     def run(self):
         data={}

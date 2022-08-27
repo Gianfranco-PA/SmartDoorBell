@@ -51,6 +51,8 @@ class Collect_data:
             qstn="No se encuentran coincidencias para {0}. Por favor podria repetirlo".format(data["Looks_for"])
             data["Looks_for"]=self.__to_ask(qstn,5)
             data["ID_habitant"]=self.__find_floor(data["Looks_for"])
+        self.creVoice.create("Enviando...")
+        self.creVoice.run()
         data["Photo"]=self.capImage.capture()
         return data
             

@@ -13,7 +13,7 @@ class State_Alert:
         
     def to_update(self):
         if self.__time>time.time():
-            self.__time=time.time()+6
+            self.__time=time.time()+8
             if self.alarm_activate:
                 self.alarm.stop()
                 self.num_pushButton=0
@@ -24,7 +24,7 @@ class State_Alert:
             else:
                 self.num_pushButton+=1
         else:
-            self.__time=time.time()+6
+            self.__time=time.time()+8
             self.alarm.stop()
             self.alarm_activate=False
             self.num_pushButton=1
